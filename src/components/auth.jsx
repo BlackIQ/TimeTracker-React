@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {auth} from "../firebase/firebase";
+import {auth, googleAuth, anonAuth, emailPasswordAuth, register} from "../firebase/firebase";
 import {useHistory} from "react-router-dom";
 
 const Auth = () => {
@@ -21,18 +21,12 @@ const Auth = () => {
 
     const loginSubmit = e => {
         e.preventDefault();
-
-        const user = {email, password};
-
-        console.log(user);
+        emailPasswordAuth(email, password);
     }
 
     const registerSubmit = e => {
         e.preventDefault();
-
-        const user = {email, password};
-
-        console.log(user);
+        register(email, password);
     }
 
     return (
@@ -76,10 +70,10 @@ const Auth = () => {
                             }
                             <br/>
                             <p>Or</p>
-                            <button className='btn btn-lg btn-danger w-100'>Continue with Google account</button>
+                            <button onClick={() => googleAuth()} className='btn btn-lg btn-danger w-100'>Continue with Google account</button>
                             <br/>
                             <br/>
-                            <button className='btn btn-lg btn-dark w-100'>Continue with Anonymous account</button>
+                            <button onClick={() => anonAuth()} className='btn btn-lg btn-dark w-100'>Continue with Anonymous account</button>
                         </div>
                     </div>
                 </div>
