@@ -1,7 +1,20 @@
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import Navbar from "./components/navbar";
+import Home from "./components/home";
+import Auth from "./components/auth";
+
 function App() {
-  return (
-    <h1>Hi</h1>
-  );
+    return (
+        <Router>
+            <Navbar/>
+            <div className='container py-4'>
+                <Switch>
+                    <Route exact path='/'><Home/></Route>
+                    <Route exact path='/auth'><Auth/></Route>
+                </Switch>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
