@@ -3,3 +3,7 @@
 body {
     font-family: 'Poppins', sans-serif !important;
 }
+
+.pointer {
+    cursor: pointer;
+}
