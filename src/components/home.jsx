@@ -14,22 +14,11 @@ const Home = () => {
         if (!user) history.push('/auth');
     }, [user, loading])
 
-    const [tracks, setTracks] = useState([
-        {name: 'Amir', id: 1},
-    ]);
-
     return (
-        <div>
-            {
-                tracks.map(track =>
-                    <div key={track.id}>
-                        <div className='p-3 text-white bg-primary bg-gradient'>
-                            {track.name}
-                        </div>
-                        <br/>
-                    </div>
-                )
-            }
+        <div className='justify-content-center row p-5 m-1'>
+            <div className='col-md-4 text-center p-5 m-1'>
+                <span>{user?.email}</span>
+            </div>
         </div>
     );
 }
