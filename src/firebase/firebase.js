@@ -11,6 +11,19 @@ import {
     signOut,
 } from 'firebase/auth'
 
+import {
+    getFirestore,
+    onSnapshot,
+    collection,
+    deleteDoc,
+    updateDoc,
+    getDocs,
+    orderBy,
+    addDoc,
+    where,
+    query,
+} from 'firebase/firestore'
+
 const firebaseConfig = {
     apiKey: "AIzaSyDdpxQkEbrTM5tGKZ7GuaMT6qziUt0J-Og",
     authDomain: "reactjs-time-tracker.firebaseapp.com",
@@ -23,8 +36,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 const googleProvider = new GoogleAuthProvider();
+
+const usersReference = collection(db, 'users');
+const tracksReference = collection(db, 'users');
 
 // Google Authentication
 const googleAuth = async () => {
@@ -36,6 +53,7 @@ const googleAuth = async () => {
     }
 }
 
+// Anonymous Authentication
 const anonAuth = async () => {
     try {
         await signInAnonymously(auth);
