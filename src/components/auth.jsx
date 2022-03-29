@@ -50,7 +50,7 @@ const Auth = () => {
                                         <button type='submit' className='btn btn-lg btn-primary w-100'>Login</button>
                                         <br/>
                                         <br/>
-                                        <small onClick={() => setForm(false)} className='pointer text-primary'>I don't have an account</small>
+                                        <button type='button' onClick={() => setForm(false)} className='btn btn-link w-100 text-primary'>I don't have an account</button>
                                     </form>
                                     :
                                     <form onSubmit={registerSubmit} style={{'textAlign': 'left'}}>
@@ -65,7 +65,7 @@ const Auth = () => {
                                         <button type='submit' className='btn btn-lg btn-primary w-100'>Create</button>
                                         <br/>
                                         <br/>
-                                        <small onClick={() => setForm(true)} className='pointer text-primary'>I have an account</small>
+                                        <button type='button' onClick={() => setForm(true)} className='btn btn-link w-100 text-primary'>I have an account</button>
                                     </form>
                             }
                             <br/>
