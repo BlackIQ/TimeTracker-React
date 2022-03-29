@@ -13,15 +13,8 @@ import {
 
 import {
     getFirestore,
-    onSnapshot,
     collection,
-    deleteDoc,
-    updateDoc,
-    getDocs,
-    orderBy,
     addDoc,
-    where,
-    query,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -41,7 +34,9 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
 const usersReference = collection(db, 'users');
-const tracksReference = collection(db, 'users');
+const taskReference = collection(db, 'tasks');
+
+// - - - - - Authentication - - - - -
 
 // Google Authentication
 const googleAuth = async () => {
@@ -103,8 +98,17 @@ const reset = async (email) => {
     }
 }
 
+// - - - - - Firestore - - - - -
+
+// Add new task
+const addNewTask =  async (data) => {
+    await addDoc(taskReference, data);
+}
+
 export {
     emailPasswordAuth,
+    taskReference,
+    addNewTask,
     googleAuth,
     register,
     anonAuth,
