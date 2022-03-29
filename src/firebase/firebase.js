@@ -25,13 +25,13 @@ import {
 } from 'firebase/firestore'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDdpxQkEbrTM5tGKZ7GuaMT6qziUt0J-Og",
-    authDomain: "reactjs-time-tracker.firebaseapp.com",
-    projectId: "reactjs-time-tracker",
-    storageBucket: "reactjs-time-tracker.appspot.com",
-    messagingSenderId: "1083271030583",
-    appId: "1:1083271030583:web:fc585478f7292469145cb2",
-    measurementId: "G-XB7L1RMH2Q"
+    apiKey: "AIzaSyBce14H5xV1mOxPd-4G_FT9qb_E1KpAA4Q",
+    authDomain: "time-tracker-f3ebc.firebaseapp.com",
+    projectId: "time-tracker-f3ebc",
+    storageBucket: "time-tracker-f3ebc.appspot.com",
+    messagingSenderId: "6247733141",
+    appId: "1:6247733141:web:534a3d89c997059a74489c",
+    measurementId: "G-1KYTTWNH2B"
 };
 
 const app = initializeApp(firebaseConfig);
