@@ -1,6 +1,19 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {auth} from "../firebase/firebase";
+import {useHistory} from "react-router-dom";
 
 const Auth = () => {
+
+    const history = useHistory();
+
+    const [user, loading, error] = useAuthState(auth);
+
+    useEffect(() => {
+        if (loading) return;
+        if (user) history.push('/');
+    }, [user, loading])
+
     const [form, setForm] = useState(true);
 
     const [email, setEmail] = useState('');
