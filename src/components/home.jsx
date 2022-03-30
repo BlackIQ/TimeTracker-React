@@ -16,12 +16,11 @@ const Home = () => {
     const addTask = e => {
         e.preventDefault();
 
-        let row = null;
-
-        if (tasks.length === 0) row = 1;
-        else row = tasks.length + 1;
-
-        const data = {'uid': user.uid, 'name': name, 'created': serverTimestamp()};
+        const data = {
+            'uid': user.uid,
+            'name': name,
+            'created': serverTimestamp(),
+        };
 
         addNewTask(data);
 
