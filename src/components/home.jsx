@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth, taskReference, addNewTask} from "../firebase/firebase";
-import {query, where, orderBy, onSnapshot, serverTimestamp} from "firebase/firestore";
+import {query, where, onSnapshot, serverTimestamp} from "firebase/firestore";
 import Task from "./task";
 
 const Home = () => {
@@ -21,7 +21,7 @@ const Home = () => {
         if (tasks.length === 0) row = 1;
         else row = tasks.length + 1;
 
-        const data = {'row': row, 'uid': user.uid, 'name': name, 'created': serverTimestamp()};
+        const data = {'uid': user.uid, 'name': name, 'created': serverTimestamp()};
 
         addNewTask(data);
 
@@ -29,7 +29,7 @@ const Home = () => {
     }
 
     const getTasks = async () => {
-        const q = query(taskReference, where('uid', '==', user.uid), orderBy('create', 'desc'));
+        const q = query(taskReference, where('uid', '==', user.uid));
         return onSnapshot(q, (querySnapshot) => {
             setTasks(querySnapshot.docs.map(doc => ({...doc.data(), 'id': doc.id})));
         })
