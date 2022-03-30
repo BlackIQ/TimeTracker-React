@@ -11,14 +11,14 @@ const Navbar = () => {
 
     useEffect(() => {
         if (loading) return;
-        if (user) setNavLink(<Link onClick={() => logout()}>Logout</Link>)
-        else setNavLink(<Link>Auth</Link>)
+        if (user) setNavLink(<Link className='text-white' onClick={() => logout()}>Logout</Link>)
+        else setNavLink(<Link className='text-white'>Auth</Link>)
     }, [user, loading])
 
     return (
-        <nav className='navbar navbar-light bg-light'>
+        <nav className='navbar navbar-light bg-primary shadow-0'>
             <div className='container'>
-                <Link className='navbar-brand' to='/'>Time Tracker</Link>
+                <Link className='navbar-brand text-white' to='/'>Time Tracker</Link>
                 {navLink}
             </div>
         </nav>
