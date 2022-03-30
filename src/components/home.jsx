@@ -48,7 +48,7 @@ const Home = () => {
             <br/>
             <div className='row'>
                 <div className='col-md-6'>
-                    {tasks && tasks.map(task => <Task key={task.id} task={task}/>)}
+                    {tasks != '' ? tasks.map(task => <Task key={task.id} task={task}/>) : <spam>Not found</spam>}
                 </div>
                 <div className='col-md-6'>
                     <div className='shadow-6 rounded-5 m-1 p-3'>
