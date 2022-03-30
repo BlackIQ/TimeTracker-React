@@ -19,6 +19,7 @@ const Home = () => {
         const data = {
             'uid': user.uid,
             'name': name,
+            'status': false,
             'created': serverTimestamp(),
         };
 
