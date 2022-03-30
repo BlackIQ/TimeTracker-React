@@ -115,4 +115,5 @@ export {
     logout,
     reset,
     auth,
+    db,
 }
