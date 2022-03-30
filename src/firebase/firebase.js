@@ -15,6 +15,9 @@ import {
     getFirestore,
     collection,
     addDoc,
+    query,
+    getDocs,
+    where,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -41,7 +44,17 @@ const taskReference = collection(db, 'tasks');
 // Google Authentication
 const googleAuth = async () => {
     try {
-        await signInWithPopup(auth, googleProvider);
+        const response = await signInWithPopup(auth, googleProvider);
+        const user = response.user;
+        const q = query(collection(db, "users"), where("uid", "==", user.uid));
+        const docs = await getDocs(q);
+        if (docs.docs.length === 0) {
+            const userData = {
+                'uid': user.uid,
+                'name': user.displayName ? user.displayName : null,
+            }
+            await addDoc(usersReference, userData);
+        }
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -51,7 +64,13 @@ const googleAuth = async () => {
 // Anonymous Authentication
 const anonAuth = async () => {
     try {
-        await signInAnonymously(auth);
+        const response = await signInAnonymously(auth);
+        const user = response.user;
+        const userData = {
+            'uid': user.uid,
+            'name': null,
+        }
+        await addDoc(usersReference, userData);
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -71,7 +90,13 @@ const emailPasswordAuth = async (email, password) => {
 // Register a new user
 const register = async (email, password) => {
     try {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const response = await createUserWithEmailAndPassword(auth, email, password);
+        const user = response.user;
+        const userData = {
+            'uid': user.uid,
+            'name': null,
+        }
+        await addDoc(usersReference, userData);
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -107,6 +132,7 @@ const addNewTask =  async (data) => {
 
 export {
     emailPasswordAuth,
+    usersReference,
     taskReference,
     addNewTask,
     googleAuth,
