@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {auth, taskReference, addNewTask} from "../firebase/firebase";
-import {query, where, onSnapshot, serverTimestamp} from "firebase/firestore";
+import {db, auth, taskReference, addNewTask, usersReference} from "../firebase/firebase";
+import {query, where, onSnapshot, serverTimestamp, doc, updateDoc} from "firebase/firestore";
 import Task from "./task";
 import {FaUser} from "react-icons/fa";
 
@@ -13,6 +13,7 @@ const Home = () => {
 
     const [name, setName] = useState('');
     const [tasks, setTasks] = useState([]);
+    const [userData, setUserData] = useState('');
 
     const addTask = e => {
         e.preventDefault();
@@ -36,10 +37,33 @@ const Home = () => {
         })
     }
 
+    const getUser = async () => {
+        const q = query(usersReference, where('uid', '==', user?.uid));
+        return onSnapshot(q, (querySnapshot) => {
+            setUserData(({'user': querySnapshot.docs[0].data(), 'id': querySnapshot.docs[0].id}));
+        })
+    }
+
+    const [userName, setUserName] = useState('');
+
+    const handleUserChangeName = async () => {
+        const userNew = {
+            'name': userName,
+        }
+        try {
+            const u = doc(db, 'users', userData.id);
+            await updateDoc(u, userNew);
+        } catch (error) {
+            console.error(error);
+            alert(error.message);
+        }
+    }
+
     useEffect(() => {
         if (loading) return;
         if (!user) history.push('/auth');
         getTasks();
+        getUser();
     }, [user, loading])
 
     if (!tasks) return null;
@@ -50,7 +74,7 @@ const Home = () => {
             <p>Loading . . .</p>
             :
             <div>
-                <h3>Welcome <span className='text-primary pointer' data-mdb-toggle='modal' data-mdb-target='#profile'>{user?.displayName ? user?.displayName : 'Dear user'}</span>.</h3>
+                <h3>Welcome <span className='text-primary pointer' data-mdb-toggle='modal' data-mdb-target='#profile'>{userData?.user?.name ? userData?.user?.name : 'No name'}</span>.</h3>
                 <br/>
                 <div className='row'>
                     <div className='col-md-6'>
@@ -92,9 +116,9 @@ const Home = () => {
                                     <h5>Change your name</h5>
                                     <form>
                                         <label className='form-label' htmlFor='name'>Name</label>
-                                        <input className='form-control' id='name' value='Current Name' placeholder='Name'/>
+                                        <input className='form-control' id='name' placeholder='Name' onChange={e => setUserName(e.target.value)}/>
                                         <br/>
-                                        <button type='button' className='btn btn-primary w-100'>Change name</button>
+                                        <button type='button' onClick={() => handleUserChangeName()} className='btn btn-primary w-100'>Change name</button>
                                     </form>
                                 </div>
                             </div>
