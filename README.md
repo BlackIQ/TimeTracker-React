@@ -6,6 +6,13 @@ Time tracker is a cloud based task manager where you can manage your tasks in yo
 
 The Back-End for both web and mobile platform is by **Google Firebase services**. So there is no worry about missing data, authentication and any other things.
 
+## Mobile application
+
+Mobile app is created with Flutter and it is also open source. You can see it from these links:
+
+- [Github source](https://github.com/BlackIQ/TimeTracker-Flutter)
+- > APK is not available, It will be release today.
+
 ## Firebase
 
 Firebase is a cloud service provider for many frameworks. Like **Authentication**, **Cloud Firestore** and **Hosting**.
