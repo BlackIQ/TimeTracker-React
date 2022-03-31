@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# Time Tracker | React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Time tracker is a cloud based task manager where you can manage your tasks in your mobile or web browser in a same time or in a most appropriate way, **Real-time**.
 
-## Available Scripts
+## How?
 
-In the project directory, you can run:
+The Back-End for both web and mobile platform is by **Google Firebase services**. So there is no worry about missing data, authentication and any other things.
 
-### `npm start`
+## Firebase
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Firebase is a cloud service provider for many frameworks. Like **Authentication**, **Cloud Firestore** and **Hosting**.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Authentication
 
-### `npm test`
+![Auth page](public/images/react-auth.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Authentication with Firebase is so easy. You can turn on Auth providers in your project part in Firebase and add their methods in your source project.
 
-### `npm run build`
+Our application has 3 ways to authenticating.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Auth providers](public/images/auth-providers.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In the Firebase authentication part, there is a part you can see users and the uid.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Users](public/images/users-authentication.png)
 
-### `npm run eject`
+#### Email & Password Authentication
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Login email and password](public/images/ep-login.png) ![Login email and password](public/images/ep-login.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You can use your Email and Password to register or login. There is also a way to reset your password.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Google Authentication
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+If you have a Google account, you can easily authenticate with your Google account.
 
-## Learn More
+#### Anonymous Authentication
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If you want to use the app as a guest or testing app, you can use Anonymous authentication where you don't need to have any Google account or any other emails.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Firestore
 
-### Code Splitting
+As we said before, we save data in **Firestore**. Firestore is a NoSQL database, there are 2 collections that I will describe them.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Tasks collection
 
-### Analyzing the Bundle Size
+![Tasks collection](public/images/task-collection.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+In this collection, there are task documents. Every document has 4 keys. Like a Json file.
 
-### Making a Progressive Web App
+```json
+{
+  "uid": "user uid",
+  "status": true,
+  "created": "Time stamp",
+  "name": "Task name"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The `status` can be `true` or `false`.
 
-### Advanced Configuration
+#### Users collection
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![Users collection](public/images/user-collection.png)
 
-### Deployment
+There are only 2 items that store in users collection.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```json
+{
+  "user": "user id",
+  "name": "user name"
+}
+```
 
-### `npm run build` fails to minify
+If user authenticate with Google account, the `name` will be your Google account name. If not, the `null` will be store in that field.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> Name can change in your panel.
+
+### Hosting
+
+App is hosting in **Firebase Hosting**. More details are described in the end of the document.
+
+## Application components
+
+![Panel](public/images/react-panel.png)
+
+Application user panel has 3 components. A navbar, Task component and adding task component.
+
+### Adding task component
+
+Validation for adding task is the mos simple way. It check the value of input and if it is not null, the button will be enabled.
+
+![Disable button](public/images/react-add-disable.png) ![Enable button](public/images/react-add-enable.png)
+
+### Task component
+
+Task component contains a checkbox that shows that task is done or not. Inside of checkbox, there is task name. To delete a task, there is a delete span that has an onClick event.
+
+![Done task](public/images/react-task-done.png) ![Not task](public/images/react-task-not.png)
+
+## Application deployment
+
+This app is running in **Firebase Hosting** and you can access to it via [this link](time-tracker-f3ebc.firebaseapp.com) or [this link](time-tracker-f3ebc.web.app).
