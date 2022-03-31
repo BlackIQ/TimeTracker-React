@@ -33,7 +33,7 @@ In the Firebase authentication part, there is a part you can see users and the u
 
 #### Email & Password Authentication
 
-![Login email and password](public/images/ep-login.png) ![Login email and password](public/images/ep-login.png)
+![Login email and password](public/images/ep-login.png) ![Register email and password](public/images/ep-register.png)
 
 You can use your Email and Password to register or login. There is also a way to reset your password.
 
