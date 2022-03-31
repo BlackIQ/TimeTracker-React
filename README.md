@@ -107,4 +107,4 @@ Task component contains a checkbox that shows that task is done or not. Inside o
 
 ## Application deployment
 
-This app is running in **Firebase Hosting** and you can access to it via [this link](time-tracker-f3ebc.firebaseapp.com) or [this link](time-tracker-f3ebc.web.app).
+This app is running in **Firebase Hosting** and you can access to it via [this link](https://time-tracker-f3ebc.firebaseapp.com) or [this link](https://time-tracker-f3ebc.web.app).
