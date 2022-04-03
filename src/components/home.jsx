@@ -1,37 +1,30 @@
 import {useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {db, auth, taskReference, addNewTask, usersReference} from "../firebase/firebase";
 import {query, where, onSnapshot, serverTimestamp, doc, updateDoc} from "firebase/firestore";
 import Task from "./task";
 import {FaUser} from "react-icons/fa";
+import Add from "./add";
 
 const Home = () => {
     const [user, loading, error] = useAuthState(auth);
 
     const history = useHistory();
+    const {type} = useParams();
 
-    const [name, setName] = useState('');
     const [tasks, setTasks] = useState([]);
     const [userData, setUserData] = useState('');
 
-    const addTask = e => {
-        e.preventDefault();
-
-        const data = {
-            'uid': user?.uid,
-            'name': name,
-            'status': false,
-            'created': serverTimestamp(),
-        };
-
-        addNewTask(data);
-
-        setName('');
-    }
-
     const getTasks = async () => {
-        const q = query(taskReference, where('uid', '==', user?.uid));
+        let q;
+        if (type === 'done') {
+            q = query(taskReference, where('uid', '==', user?.uid), where('status', '==', true));
+        } else if (type === 'not') {
+            q = query(taskReference, where('uid', '==', user?.uid), where('status', '==', false));
+        } else {
+            q = query(taskReference, where('uid', '==', user?.uid));
+        }
         return onSnapshot(q, (querySnapshot) => {
             setTasks(querySnapshot.docs.map(doc => ({...doc.data(), 'id': doc.id})));
         })
@@ -83,18 +76,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className='col-md-6'>
-                        <div className='shadow-6 rounded-5 m-1 p-3'>
-                            <h4 className='text-primary'>New one</h4>
-                            <br/>
-                            <form onSubmit={addTask}>
-                                <label htmlFor='name' className='form-label'>Task name</label>
-                                <input type='text' id='name' className='form-control' value={name} placeholder='Name'
-                                       onChange={e => setName(e.target.value)} autoComplete='off'/>
-                                <br/>
-                                {name ? <button type='submit' className='btn btn-primary w-100'>Add task</button> :
-                                    <button type='submit' className='btn btn-primary w-100' disabled>Add task</button>}
-                            </form>
-                        </div>
+                        <Add/>
                     </div>
                 </div>
                 <div className='modal fade' id='profile'>
