@@ -30,7 +30,7 @@ const Task = (props) => {
     return (
         <div key={task.id}>
             <div className='border border-primary rounded-4 p-3'>
-                <div className='pointer' onClick={() => handleUpdate()}>
+                <div className='pointer task-head' onClick={() => handleUpdate()}>
                     <input type='checkbox' className='form-check-input' checked={task.status}/>
                     <span>{task.name}</span>
                 </div>
