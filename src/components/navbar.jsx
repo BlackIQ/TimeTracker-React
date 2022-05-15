@@ -1,10 +1,11 @@
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth, logout} from "../firebase/firebase";
 import {useEffect, useState} from "react";
 
 const Navbar = () => {
     const [user, loading, error] = useAuthState(auth);
+
 
     useEffect(() => {
         if (loading) return;
@@ -18,9 +19,9 @@ const Navbar = () => {
                     user ? <div className='btn-group shadow-0'>
                         <span className="text-white pointer" data-mdb-toggle="dropdown">Options</span>
                         <ul className="dropdown-menu">
-                            <li><span className="dropdown-item pointer text-primary">All</span></li>
-                            <li><span className="dropdown-item pointer text-success">Done</span></li>
-                            <li><span className="dropdown-item pointer text-danger">Not done</span></li>
+                            <li><Link className="dropdown-item pointer text-primary" to={'/'}>All</Link></li>
+                            <li><Link className="dropdown-item pointer text-success" to={'/done'}>Done</Link></li>
+                            <li><Link className="dropdown-item pointer text-danger" to={'/not'}>Not done</Link></li>
                             <li>
                                 <hr className="dropdown-divider"/>
                             </li>
