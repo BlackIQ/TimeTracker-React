@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {db, auth, taskReference, addNewTask, usersReference} from "../firebase/firebase";
-import {query, where, onSnapshot, serverTimestamp, doc, updateDoc} from "firebase/firestore";
+import {db, auth, taskReference, usersReference} from "../firebase/firebase";
+import {query, where, onSnapshot, doc, updateDoc} from "firebase/firestore";
 import Task from "./task";
 import {FaUser} from "react-icons/fa";
 import Add from "./add";
@@ -16,7 +16,7 @@ const Home = () => {
     const [tasks, setTasks] = useState([]);
     const [userData, setUserData] = useState('');
 
-    const getTasks = async () => {
+    const getTasks = async (type) => {
         let q;
         if (type === 'done') {
             q = query(taskReference, where('uid', '==', user?.uid), where('status', '==', true));
