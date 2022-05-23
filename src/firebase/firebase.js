@@ -4,6 +4,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
+    FacebookAuthProvider,
     GoogleAuthProvider,
     signInAnonymously,
     signInWithPopup,
@@ -35,6 +36,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 const usersReference = collection(db, 'users');
 const taskReference = collection(db, 'tasks');
@@ -45,6 +47,26 @@ const taskReference = collection(db, 'tasks');
 const googleAuth = async () => {
     try {
         const response = await signInWithPopup(auth, googleProvider);
+        const user = response.user;
+        const q = query(collection(db, "users"), where("uid", "==", user.uid));
+        const docs = await getDocs(q);
+        if (docs.docs.length === 0) {
+            const userData = {
+                'uid': user.uid,
+                'name': user.displayName ? user.displayName : null,
+            }
+            await addDoc(usersReference, userData);
+        }
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+// Facebook Authentication
+const facebookAuth = async () => {
+    try {
+        const response = await signInWithPopup(auth, facebookProvider);
         const user = response.user;
         const q = query(collection(db, "users"), where("uid", "==", user.uid));
         const docs = await getDocs(q);
@@ -135,6 +157,7 @@ export {
     usersReference,
     taskReference,
     addNewTask,
+    facebookAuth,
     googleAuth,
     register,
     anonAuth,
