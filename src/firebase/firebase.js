@@ -7,6 +7,7 @@ import {
     FacebookAuthProvider,
     GoogleAuthProvider,
     GithubAuthProvider,
+    OAuthProvider,
     signInAnonymously,
     signInWithPopup,
     getAuth,
@@ -39,6 +40,7 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 const githubProvider = new GithubAuthProvider();
+const yahooProvider = new OAuthProvider('yahoo.com');
 
 const usersReference = collection(db, 'users');
 const taskReference = collection(db, 'tasks');
@@ -85,10 +87,30 @@ const facebookAuth = async () => {
     }
 }
 
-// Facebook Authentication
+// Github Authentication
 const githubAuth = async () => {
     try {
         const response = await signInWithPopup(auth, githubProvider);
+        const user = response.user;
+        const q = query(collection(db, "users"), where("uid", "==", user.uid));
+        const docs = await getDocs(q);
+        if (docs.docs.length === 0) {
+            const userData = {
+                'uid': user.uid,
+                'name': user.displayName ? user.displayName : null,
+            }
+            await addDoc(usersReference, userData);
+        }
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+// Yahoo Authentication
+const yahooAuth = async () => {
+    try {
+        const response = await signInWithPopup(auth, yahooProvider);
         const user = response.user;
         const q = query(collection(db, "users"), where("uid", "==", user.uid));
         const docs = await getDocs(q);
@@ -182,6 +204,7 @@ export {
     facebookAuth,
     googleAuth,
     githubAuth,
+    yahooAuth,
     register,
     anonAuth,
     logout,
