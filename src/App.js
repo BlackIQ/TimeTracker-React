@@ -9,7 +9,7 @@ function App() {
             <Navbar/>
             <div className='container py-4'>
                 <Switch>
-                    <Route path='/:type'><Home/></Route>
+                    <Route exact path='/'><Home/></Route>
                     <Route exact path='/auth'><Auth/></Route>
                 </Switch>
             </div>
