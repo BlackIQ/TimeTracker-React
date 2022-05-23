@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {auth, googleAuth, anonAuth, emailPasswordAuth, register} from "../firebase/firebase";
+import {auth, googleAuth, anonAuth, emailPasswordAuth, register, facebookAuth} from "../firebase/firebase";
 import {useHistory} from "react-router-dom";
 
 const Auth = () => {
@@ -32,48 +32,59 @@ const Auth = () => {
     return (
         <div>
             <div className='row justify-content-center'>
-                <div className='col-md-4 text-center'>
+                <div className='col-md-8 text-center'>
                     <div className='card border'>
                         <div className='card-body'>
-                            {
-                                form
-                                    ?
-                                    <form onSubmit={loginSubmit} style={{'textAlign': 'left'}}>
-                                        <h4>Login with Email</h4>
-                                        <hr/>
-                                        <label className='form-label' htmlFor='email'>Email</label>
-                                        <input type='email' id='email' className='form-control' placeholder='Email' onChange={e => setEmail(e.target.value)}/>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="m-1">
+                                    {
+                                            form
+                                                ?
+                                                <form onSubmit={loginSubmit} style={{'textAlign': 'left'}}>
+                                                    <h4>Login with Email</h4>
+                                                    <hr/>
+                                                    <label className='form-label' htmlFor='email'>Email</label>
+                                                    <input type='email' id='email' className='form-control' placeholder='Email' onChange={e => setEmail(e.target.value)}/>
+                                                    <br/>
+                                                    <label className='form-label' htmlFor='password'>Password</label>
+                                                    <input type='password' id='password' className='form-control' placeholder='Password' onChange={e => setPassword(e.target.value)}/>
+                                                    <br/>
+                                                    <button type='submit' className='btn btn-lg btn-primary w-100'>Login</button>
+                                                    <br/>
+                                                    <br/>
+                                                    <button type='button' onClick={() => setForm(false)} className='btn btn-lg btn-link w-100 text-primary'>I don't have an account</button>
+                                                </form>
+                                                :
+                                                <form onSubmit={registerSubmit} style={{'textAlign': 'left'}}>
+                                                    <h4>Create an account</h4>
+                                                    <hr/>
+                                                    <label className='form-label' htmlFor='email'>Email</label>
+                                                    <input type='email' id='email' className='form-control' placeholder='Email' onChange={e => setEmail(e.target.value)}/>
+                                                    <br/>
+                                                    <label className='form-label' htmlFor='password'>Password</label>
+                                                    <input type='password' id='password' className='form-control' placeholder='Password' onChange={e => setPassword(e.target.value)}/>
+                                                    <br/>
+                                                    <button type='submit' className='btn btn-lg btn-primary w-100'>Create</button>
+                                                    <br/>
+                                                    <br/>
+                                                    <button type='button' onClick={() => setForm(true)} className='btn btn-lg btn-link w-100 text-primary'>I have an account</button>
+                                                </form>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="m-1">
+                                        <button onClick={() => googleAuth()} className='btn btn-danger w-100'>Continue with Google account</button>
                                         <br/>
-                                        <label className='form-label' htmlFor='password'>Password</label>
-                                        <input type='password' id='password' className='form-control' placeholder='Password' onChange={e => setPassword(e.target.value)}/>
                                         <br/>
-                                        <button type='submit' className='btn btn-lg btn-primary w-100'>Login</button>
+                                        <button onClick={() => facebookAuth()} className='btn btn-primary w-100'>Continue with Facebook account</button>
                                         <br/>
                                         <br/>
-                                        <button type='button' onClick={() => setForm(false)} className='btn btn-lg btn-link w-100 text-primary'>I don't have an account</button>
-                                    </form>
-                                    :
-                                    <form onSubmit={registerSubmit} style={{'textAlign': 'left'}}>
-                                        <h4>Create an account</h4>
-                                        <hr/>
-                                        <label className='form-label' htmlFor='email'>Email</label>
-                                        <input type='email' id='email' className='form-control' placeholder='Email' onChange={e => setEmail(e.target.value)}/>
-                                        <br/>
-                                        <label className='form-label' htmlFor='password'>Password</label>
-                                        <input type='password' id='password' className='form-control' placeholder='Password' onChange={e => setPassword(e.target.value)}/>
-                                        <br/>
-                                        <button type='submit' className='btn btn-lg btn-primary w-100'>Create</button>
-                                        <br/>
-                                        <br/>
-                                        <button type='button' onClick={() => setForm(true)} className='btn btn-lg btn-link w-100 text-primary'>I have an account</button>
-                                    </form>
-                            }
-                            <br/>
-                            <p>Or</p>
-                            <button onClick={() => googleAuth()} className='btn btn-lg btn-danger w-100'>Continue with Google account</button>
-                            <br/>
-                            <br/>
-                            <button onClick={() => anonAuth()} className='btn btn-lg btn-dark w-100'>Continue with Anonymous account</button>
+                                        <button onClick={() => anonAuth()} className='btn btn-dark w-100'>Continue with Anonymous account</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
