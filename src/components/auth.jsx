@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {auth, googleAuth, anonAuth, emailPasswordAuth, register, facebookAuth} from "../firebase/firebase";
+import {auth, googleAuth, anonAuth, emailPasswordAuth, register, facebookAuth, githubAuth, yahooAuth} from "../firebase/firebase";
 import {useHistory} from "react-router-dom";
 
 const Auth = () => {
@@ -81,7 +81,13 @@ const Auth = () => {
                                         <button onClick={() => facebookAuth()} className='btn btn-primary w-100'>Continue with Facebook account</button>
                                         <br/>
                                         <br/>
-                                        <button onClick={() => anonAuth()} className='btn btn-dark w-100'>Continue with Anonymous account</button>
+                                        <button onClick={() => githubAuth()} className='btn btn-dark w-100'>Continue with Github account</button>
+                                        <br/>
+                                        <br/>
+                                        <button onClick={() => yahooAuth()} className='btn btn-secondary w-100'>Continue with Yahoo account</button>
+                                        <br/>
+                                        <br/>
+                                        <button onClick={() => anonAuth()} className='btn btn-outline-black w-100'>Continue with Anonymous account</button>
                                     </div>
                                 </div>
                             </div>
