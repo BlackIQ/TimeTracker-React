@@ -6,6 +6,7 @@ import {
     sendPasswordResetEmail,
     FacebookAuthProvider,
     GoogleAuthProvider,
+    GithubAuthProvider,
     signInAnonymously,
     signInWithPopup,
     getAuth,
@@ -37,6 +38,7 @@ const db = getFirestore(app);
 
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 const usersReference = collection(db, 'users');
 const taskReference = collection(db, 'tasks');
@@ -67,6 +69,26 @@ const googleAuth = async () => {
 const facebookAuth = async () => {
     try {
         const response = await signInWithPopup(auth, facebookProvider);
+        const user = response.user;
+        const q = query(collection(db, "users"), where("uid", "==", user.uid));
+        const docs = await getDocs(q);
+        if (docs.docs.length === 0) {
+            const userData = {
+                'uid': user.uid,
+                'name': user.displayName ? user.displayName : null,
+            }
+            await addDoc(usersReference, userData);
+        }
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+// Facebook Authentication
+const githubAuth = async () => {
+    try {
+        const response = await signInWithPopup(auth, githubProvider);
         const user = response.user;
         const q = query(collection(db, "users"), where("uid", "==", user.uid));
         const docs = await getDocs(q);
@@ -159,6 +181,7 @@ export {
     addNewTask,
     facebookAuth,
     googleAuth,
+    githubAuth,
     register,
     anonAuth,
     logout,
