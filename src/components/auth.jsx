@@ -50,7 +50,7 @@ const Auth = () => {
                                                     <label className='form-label' htmlFor='password'>Password</label>
                                                     <input type='password' id='password' className='form-control' placeholder='Password' onChange={e => setPassword(e.target.value)}/>
                                                     <br/>
-                                                    <button type='submit' className='btn btn-lg btn-primary w-100'>Login</button>
+                                                    <button type='submit' className='btn btn-lg btn-primary shadow-0 w-100'>Login</button>
                                                     <br/>
                                                     <br/>
                                                     <button type='button' onClick={() => setForm(false)} className='btn btn-lg btn-link w-100 text-primary'>I don't have an account</button>
@@ -65,7 +65,7 @@ const Auth = () => {
                                                     <label className='form-label' htmlFor='password'>Password</label>
                                                     <input type='password' id='password' className='form-control' placeholder='Password' onChange={e => setPassword(e.target.value)}/>
                                                     <br/>
-                                                    <button type='submit' className='btn btn-lg btn-primary w-100'>Create</button>
+                                                    <button type='submit' className='btn btn-lg btn-primary shadow-0 w-100'>Create</button>
                                                     <br/>
                                                     <br/>
                                                     <button type='button' onClick={() => setForm(true)} className='btn btn-lg btn-link w-100 text-primary'>I have an account</button>
@@ -75,19 +75,22 @@ const Auth = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="m-1">
-                                        <button onClick={() => googleAuth()} className='btn btn-danger w-100'>Continue with Google account</button>
+                                        <button onClick={() => googleAuth()} className='btn btn-danger shadow-0 w-100'>Continue with Google account</button>
                                         <br/>
                                         <br/>
-                                        <button onClick={() => facebookAuth()} className='btn btn-primary w-100'>Continue with Facebook account</button>
+                                        <button onClick={() => facebookAuth()} className='btn btn-info shadow-0 w-100'>Continue with Twitter account</button>
                                         <br/>
                                         <br/>
-                                        <button onClick={() => githubAuth()} className='btn btn-dark w-100'>Continue with Github account</button>
+                                        <button onClick={() => facebookAuth()} className='btn btn-primary shadow-0 w-100'>Continue with Facebook account</button>
                                         <br/>
                                         <br/>
-                                        <button onClick={() => yahooAuth()} className='btn btn-secondary w-100'>Continue with Yahoo account</button>
+                                        <button onClick={() => githubAuth()} className='btn btn-dark shadow-0 w-100'>Continue with Github account</button>
                                         <br/>
                                         <br/>
-                                        <button onClick={() => anonAuth()} className='btn btn-outline-black w-100'>Continue with Anonymous account</button>
+                                        <button onClick={() => yahooAuth()} className='btn btn-secondary shadow-0 w-100'>Continue with Yahoo account</button>
+                                        <br/>
+                                        <br/>
+                                        <button onClick={() => anonAuth()} className='btn btn-outline-black shadow-0 w-100'>Continue with Anonymous account</button>
                                     </div>
                                 </div>
                             </div>
